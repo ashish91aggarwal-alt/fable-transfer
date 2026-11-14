@@ -1,0 +1,53 @@
+job: extension
+config:
+  name: "fable_ant_grass_v1"
+  process:
+    - type: 'sd_trainer'
+      training_folder: "/w/lora_out"
+      device: cuda:0
+      network: {type: "lora", linear: 16, linear_alpha: 16}
+      save: {dtype: float16, save_every: 500, max_step_saves_to_keep: 3}
+      datasets:
+        - folder_path: "/w/lora_data"
+          caption_ext: "txt"
+          caption_dropout_rate: 0.05
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          resolution: [512, 768, 1024]
+      train:
+        batch_size: 1
+        cache_text_embeddings: true
+        steps: 1500
+        gradient_accumulation: 1
+        train_unet: true
+        train_text_encoder: false
+        gradient_checkpointing: true
+        noise_scheduler: "flowmatch"
+        optimizer: "adamw8bit"
+        lr: 1e-4
+        dtype: bf16
+      model:
+        name_or_path: "Qwen/Qwen-Image"
+        arch: "qwen_image"
+        quantize: true
+        qtype: "qfloat8"
+        quantize_te: true
+        qtype_te: "qfloat8"
+        low_vram: false
+      sample:
+        sampler: "flowmatch"
+        sample_every: 500
+        sample_start_step: 0
+        width: 1344
+        height: 768
+        prompts:
+          - "fblbook painted picture-book illustration, soft gouache and watercolor texture. anaant, a small rust-red ant with an acorn-cap hat, big brown eyes, six thin legs, carries a crumb along a fence in a summer meadow, every leg clearly separate."
+          - "fblbook painted picture-book illustration, soft gouache and watercolor texture. gusgrass, an olive-green grasshopper with a mustard knitted scarf, big round eyes, long bent hind legs, laughing in the clover, mouth closed in a wide smile."
+          - "fblbook painted picture-book illustration, soft gouache and watercolor texture. gusgrass dances among falling autumn leaves holding a small guitar, no wings, no hair."
+          - "fblbook painted picture-book illustration, soft gouache and watercolor texture. anaant stacks baskets of seeds and berries in a warm underground pantry lit by a lantern, rust-red body."
+        neg: ""
+        seed: 42
+        walk_seed: true
+        guidance_scale: 3
+        sample_steps: 25
+meta: {name: "fable_ant_grass", version: '1.0'}
