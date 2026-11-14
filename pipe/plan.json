@@ -1,0 +1,98 @@
+[
+ {
+  "id": "s01",
+  "start": "/tmp/dry/inputs/start_01.png",
+  "end": "/tmp/dry/inputs/end_01.png",
+  "prompt": "Static camera, locked tripod. Ana walks along the path in the distance; grass sways, warm haze drifts. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": true,
+  "world": "grass sways, warm haze drifts"
+ },
+ {
+  "id": "s02",
+  "start": "/tmp/dry/inputs/start_02.png",
+  "end": "/tmp/dry/inputs/end_02.png",
+  "prompt": "Static camera, locked tripod. Ana takes two small steps forward carrying the berry, antennae bob gently; grass sways. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": true,
+  "world": "grass sways"
+ },
+ {
+  "id": "s03",
+  "start": "/tmp/dry/inputs/start_03.png",
+  "end": "/tmp/dry/inputs/end_03.png",
+  "prompt": "Static camera, locked tripod. Gus's raised foot taps slowly, eyes stay closed; flowers nod. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "flowers nod, clover sways"
+ },
+ {
+  "id": "s04",
+  "start": "/tmp/dry/inputs/start_04.png",
+  "end": "/tmp/dry/inputs/end_04.png",
+  "prompt": "Static camera, locked tripod. Gus lowers his waving arm while Ana slowly shakes her head once; grass sways. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "grass sways"
+ },
+ {
+  "id": "s07",
+  "start": "/tmp/dry/inputs/start_07.png",
+  "end": "/tmp/dry/inputs/end_07.png",
+  "prompt": "Static camera, locked tripod. Ana walks slowly carrying the acorn; orange leaves fall and tumble. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": true,
+  "world": "orange leaves fall"
+ },
+ {
+  "id": "s10",
+  "start": "/tmp/dry/inputs/start_10.png",
+  "end": "/tmp/dry/inputs/end_10.png",
+  "prompt": "Static camera, locked tripod. Gus hugs himself and shivers slightly; wind bends dry grass, last leaves fly. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "wind bends dry grass"
+ },
+ {
+  "id": "s12",
+  "start": "/tmp/dry/inputs/start_12.png",
+  "end": "/tmp/dry/inputs/end_12.png",
+  "prompt": "Static camera, locked tripod. Gus knocks on the door three times with one hand; snow falls. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "snow falls, wreath sways"
+ },
+ {
+  "id": "s13",
+  "start": "/tmp/dry/inputs/start_13.png",
+  "end": "/tmp/dry/inputs/end_13.png",
+  "prompt": "Static camera, locked tripod. Ana tilts her head slowly; fire flickers. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "fire flickers"
+ },
+ {
+  "id": "s14",
+  "start": "/tmp/dry/inputs/start_14.png",
+  "end": "/tmp/dry/inputs/end_14.png",
+  "prompt": "Static camera, locked tripod. the door swings open slowly, warm light spills onto the snow. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "snow falls"
+ },
+ {
+  "id": "s15",
+  "start": "/tmp/dry/inputs/start_15.png",
+  "end": "/tmp/dry/inputs/end_15.png",
+  "prompt": "Static camera, locked tripod. Gus lifts the spoon to his mouth once; steam rises from the bowls. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "steam rises"
+ },
+ {
+  "id": "s16",
+  "start": "/tmp/dry/inputs/start_16.png",
+  "end": "/tmp/dry/inputs/end_16.png",
+  "prompt": "Static camera, locked tripod. both smile and sway gently; grass and poppies sway. Same shape, same number of legs, same colors. Mouth stays closed.",
+  "legs_move": false,
+  "world": "grass sways"
+ },
+ {
+  "id": "w01",
+  "start": "/tmp/dry/inputs/start_01.png",
+  "end": "/tmp/dry/inputs/start_01.png",
+  "prompt": "Static camera. character stays still, breathing gently; grass sways in a light breeze",
+  "legs_move": false,
+  "world": "grass sways"
+ }
+]
