@@ -31,7 +31,7 @@ config:
         arch: "qwen_image"
         quantize: true
         qtype: "qfloat8"
-        quantize_te: true
+        quantize_te: false
         qtype_te: "qfloat8"
         low_vram: false
       sample:
