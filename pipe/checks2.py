@@ -127,8 +127,12 @@ def run(clip, start, end, use_vlm=True, use_sam=True):
             chk("sam_area", True, "no characters located (skipped)")
     TOUCH()
     if use_vlm:
+        fdir = f"{tmpd}/f"; os.makedirs(fdir, exist_ok=True)
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", clip, "-vf", "fps=4,scale=640:-2", f"{fdir}/%03d.jpg"])
+        frames = sorted(os.listdir(fdir)); frames = frames[: 24] if len(frames) <= 24 else [frames[int(i * (len(frames) - 1) / 23)] for i in range(24)]
+        if len(frames) % 2: frames = frames[:-1]
         r = ask([{"type": "image", "image": "file://" + start},
-                 {"type": "video", "video": "file://" + small, "fps": 4.0, "max_pixels": 360 * 640},
+                 {"type": "video", "video": ["file://" + f"{fdir}/{x}" for x in frames], "max_pixels": 360 * 640},
                  {"type": "text", "text": JUDGE}], max_new=250)
         js = jparse(r) or {}
         flagged = [k for k in JKEYS if js.get(k) is True]
