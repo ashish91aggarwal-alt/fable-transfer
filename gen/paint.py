@@ -11,7 +11,9 @@ def lora_path():
     c = sorted(glob.glob('/w/lora_out/fable_ant_grass_v1/*.safetensors')); return c[-1]
 if sys.argv[1] == 'repaint':
     from diffusers import QwenImagePipeline
-    p = QwenImagePipeline.from_pretrained('Qwen/Qwen-Image', torch_dtype=torch.bfloat16).to('cuda')
+    from diffusers.quantizers import PipelineQuantizationConfig
+    q = PipelineQuantizationConfig(quant_backend='bitsandbytes_8bit', quant_kwargs={}, components_to_quantize=['transformer', 'text_encoder'])
+    p = QwenImagePipeline.from_pretrained('Qwen/Qwen-Image', torch_dtype=torch.bfloat16, quantization_config=q).to('cuda')
     p.load_lora_weights(lora_path())
     jobs = {
      'p07_gus_laugh': f'{S}. close-up of {G} laughing happily in the clover, eyes squeezed shut in joy, mouth closed in a wide smile, round friendly face, summer meadow behind, mustard scarf, no wings, no hair.',
@@ -25,7 +27,9 @@ if sys.argv[1] == 'repaint':
             im.save(f'{OUT}/repaint/{k}_s{sd}.png'); touch(); print('saved', k, sd, flush=True)
 elif sys.argv[1] == 'keyframes':
     from diffusers import QwenImageEditPlusPipeline
-    p = QwenImageEditPlusPipeline.from_pretrained('Qwen/Qwen-Image-Edit-2509', torch_dtype=torch.bfloat16).to('cuda')
+    from diffusers.quantizers import PipelineQuantizationConfig
+    q = PipelineQuantizationConfig(quant_backend='bitsandbytes_8bit', quant_kwargs={}, components_to_quantize=['transformer', 'text_encoder'])
+    p = QwenImageEditPlusPipeline.from_pretrained('Qwen/Qwen-Image-Edit-2509', torch_dtype=torch.bfloat16, quantization_config=q).to('cuda')
     keep = ' Keep everything else exactly the same: same painting style, same background, same lighting, same character designs and colors, same framing. Only change what is described.'
     steps = [('k2', 'Gus the green grasshopper lowers his waving arm and smiles; Ana the ant turns her head slightly to one side as if gently shaking her head no, still holding her seed, kind face, mouth closed.'),
              ('k3', 'Gus the green grasshopper laughs with his eyes squeezed shut and shoulders raised, mouth closed in a wide smile; Ana unchanged.'),
