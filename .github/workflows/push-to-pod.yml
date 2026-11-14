@@ -1,0 +1,20 @@
+name: push-to-pod
+on:
+  workflow_dispatch:
+    inputs:
+      base:  {description: "pod file server base URL incl. secret path", required: true}
+      paths: {description: "space-separated repo paths (files or folders)", required: true}
+permissions:
+  contents: read
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: upload
+        run: |
+          for p in ${{ inputs.paths }}; do
+            find "$p" -type f | while read f; do
+              curl -fsS --retry 3 -T "$f" "${{ inputs.base }}/$f" && echo "sent $f"
+            done
+          done
