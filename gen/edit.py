@@ -15,7 +15,7 @@ def run(images, instr, path, seed, size):
            generator=torch.Generator('cuda').manual_seed(seed)).images[0].resize(size, Image.LANCZOS)
     im.save(path); touch(); print('saved', path, flush=True); return im
 L = lambda f: Image.open(f'{IN}/{f}').convert('RGB')
-G, A = L('refs/gus_clean.png'), L('refs/ana_clean.png')
+G, A = L('refs/gus_clean.png'), L('refs/ana_ref.png')
 if sys.argv[1] == 'jobs':
     os.makedirs(f'{OUT}/edit', exist_ok=True)
     jobs = {
