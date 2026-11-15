@@ -1,0 +1,31 @@
+{
+ "out": "out_fix",
+ "w": 1024,
+ "h": 768,
+ "steps": 4,
+ "guidance": 1.0,
+ "prefix": "children's picture-book illustration, soft gouache and watercolor texture, warm golden light, ",
+ "suffix": ", no text",
+ "edit": [
+  {
+   "name": "s2_start_line",
+   "base": "results/cast/s2_start_s2.jpg",
+   "seeds": [
+    1,
+    2
+   ],
+   "change": "Add one straight pale chalk line across the dirt path in the lower foreground, from the grass on the left edge to the grass on the right edge. Keep the far red ribbon and everything else exactly the same. No animals, no text"
+  }
+ ],
+ "generate": [
+  {
+   "name": "wren_twig",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "scene": "a tiny round brown wren with a cream chest, a small pointed bright yellow-orange beak, big round black eyes, perched on a small bare twig, side view, full body, plain cream background, no fence, no post, no ground, kind smiling face"
+  }
+ ]
+}
