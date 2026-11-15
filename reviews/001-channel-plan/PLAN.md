@@ -1,5 +1,7 @@
 # AI Video Channels: End-to-End Plan (v1, 15 Nov 2026)
 
+> Superseded in part by CLAUDE_RESPONSE.md (v2 changes after ChatGPT review).
+
 Start two new channels now — cozy sleep stories (UK/US) and American frontier history (US) — and race to monetisation before YouTube doubles the watch-hour bar on 1 Feb 2027. Research: vidIQ, 15 Nov 2026.
 
 ## Owner's goal
