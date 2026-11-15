@@ -13,7 +13,7 @@ while true; do
 done
 W
 chmod +x /w/watchdog.sh; nohup /w/watchdog.sh > /dev/null 2>&1 &
-cd /w && git clone --depth 1 https://github.com/ashish91aggarwal-alt/fable-transfer repo
+cd /w && git clone -q --depth 1 --filter=blob:none --sparse https://github.com/ashish91aggarwal-alt/fable-transfer repo && git -C repo sparse-checkout set pod channels/sleep-stories/voice-test/round6-models
 SECRET=$SECRET ROOT=/w/share nohup python3 repo/pod/fileserver.py 8000 > /w/fs.log 2>&1 &
 (apt-get update -qq && apt-get install -y -qq ffmpeg sox) > /w/share/apt.log 2>&1
 SRC=/w/repo/channels/sleep-stories/voice-test/round6-models
