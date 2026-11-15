@@ -1,0 +1,51 @@
+"""Paint with FLUX.2 Klein 4B (Apache-2.0). New pictures (generate) and small edits of an approved picture (edit).
+
+    python3 klein.py generate jobs.json | edit jobs.json | dry jobs.json   (dry = print prompts only, no GPU)
+
+jobs.json (paths relative to it):
+{ "out":"out", "w":1344, "h":768, "steps":4, "guidance":1.0,
+  "prefix":"children's picture-book illustration, soft gouache and watercolor texture, warm golden light, ",
+  "suffix":", no text",
+  "generate":[{"name":"s1","seeds":[1,2],"scene":"..."}],
+  "edit":[{"name":"tilly_side","base":"refs/T1.jpg","seeds":[1,2,3],"change":"..."}] }
+Edit prompt = the change, then "Keep everything else exactly the same." One image in, one change. Writes <name>_s<seed>.png,
+timings.txt (load seconds, seconds per picture, peak VRAM) and touches /w/activity per picture (idle kill switch).
+Offload is NEVER silent: set OFFLOAD=1 to enable it. Pictures that already exist are skipped (safe to rerun).
+"""
+import sys, os, json, time
+mode, jp = sys.argv[1], sys.argv[2]
+J = json.load(open(jp)); D = os.path.dirname(os.path.abspath(jp))
+rel = lambda p: p if os.path.isabs(p) else os.path.join(D, p)
+OUT = rel(J.get('out', 'out')); os.makedirs(OUT, exist_ok=True)
+W, H = J.get('w', 1344), J.get('h', 768)
+def gprompt(j): return f"{J.get('prefix','')}{j['scene']}{J.get('suffix','')}"
+def eprompt(j): return f"{j['change']}. Keep everything else exactly the same: same character, colors, painting style and background."
+if mode == 'dry':
+    for j in J.get('edit', []): print('EDIT', j['name'], j['seeds'], '<-', j['base'], '|', eprompt(j))
+    for j in J.get('generate', []): print('GEN ', j['name'], j['seeds'], '|', gprompt(j))
+    n = sum(len(j['seeds']) for k in ('edit', 'generate') for j in J.get(k, []))
+    print('TOTAL pictures:', n, ' size', W, 'x', H); sys.exit(0)
+import torch
+from PIL import Image
+from diffusers import Flux2KleinPipeline
+t0 = time.time()
+pipe = Flux2KleinPipeline.from_pretrained('black-forest-labs/FLUX.2-klein-4B', torch_dtype=torch.bfloat16)
+pipe.enable_model_cpu_offload() if os.environ.get('OFFLOAD') == '1' else pipe.to('cuda')
+load_s = time.time() - t0
+touch = lambda: os.utime('/w/activity') if os.path.exists('/w/activity') else None
+log = open(os.path.join(OUT, 'timings.txt'), 'a'); log.write(f'load_seconds {load_s:.0f}\n'); log.flush()
+def run(name, seed, w=None, h=None, **kw):
+    fp = os.path.join(OUT, f'{name}_s{seed}.png')
+    if os.path.exists(fp): return
+    t = time.time()
+    img = pipe(height=h or H, width=w or W, num_inference_steps=J.get('steps', 4), guidance_scale=J.get('guidance', 1.0),
+               generator=torch.Generator('cuda').manual_seed(seed), **kw).images[0]
+    img.save(fp); touch()
+    log.write(f'{name}_s{seed} {time.time()-t:.1f}s peak_vram_gb {torch.cuda.max_memory_allocated()/1e9:.1f}\n'); log.flush()
+if mode in ('edit', 'both'):
+    for j in J.get('edit', []):
+        base = Image.open(rel(j['base'])).convert('RGB'); bw, bh = (base.width // 16) * 16, (base.height // 16) * 16  # keep the source shape: never stretch
+        for s in j['seeds']: run(j['name'], s, w=bw, h=bh, image=base, prompt=eprompt(j))
+if mode in ('generate', 'both'):
+    for j in J.get('generate', []):
+        for s in j['seeds']: run(j['name'], s, prompt=gprompt(j))

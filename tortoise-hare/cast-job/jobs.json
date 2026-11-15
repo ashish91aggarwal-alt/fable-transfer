@@ -1,0 +1,120 @@
+{
+ "out": "out",
+ "w": 1344,
+ "h": 768,
+ "steps": 4,
+ "guidance": 1.0,
+ "prefix": "children's picture-book illustration, soft gouache and watercolor texture, warm golden light, wide landscape scene, no animals, no characters, ",
+ "suffix": ", no text",
+ "edit": [
+  {
+   "name": "tilly_side",
+   "base": "refs/T1.jpg",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "change": "Remove the moss, the clover and the mushroom from the tortoise's shell; the shell is clean with only its own pattern; plain cream background"
+  },
+  {
+   "name": "tilly_front",
+   "base": "refs/T1.jpg",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "change": "Show this same tortoise from the front, facing the viewer, standing; remove the moss, clover and mushroom from the shell"
+  },
+  {
+   "name": "tilly_walk",
+   "base": "refs/T1.jpg",
+   "seeds": [
+    1,
+    2
+   ],
+   "change": "The tortoise takes one step forward, one front leg lifted slightly; remove the moss, clover and mushroom from the shell"
+  },
+  {
+   "name": "hugo_front",
+   "base": "refs/H1.jpg",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "change": "Show this same hare from the front, standing and facing the viewer"
+  },
+  {
+   "name": "hugo_sleep",
+   "base": "refs/H1.jpg",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "change": "This same hare is curled up asleep on the grass, eyes closed, ears resting"
+  },
+  {
+   "name": "wren_front",
+   "base": "refs/B1.jpg",
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "change": "Show this same little wren from the front, perched, facing the viewer"
+  }
+ ],
+ "generate": [
+  {
+   "name": "s1_meadow",
+   "seeds": [
+    1,
+    2
+   ],
+   "scene": "green meadow in the morning with wildflowers, a wooden fence and a dirt path, golden olive and sand and warm cream colors"
+  },
+  {
+   "name": "s2_start",
+   "seeds": [
+    1,
+    2
+   ],
+   "scene": "the same green meadow at midday with a start line drawn in the dirt and a red ribbon far away, warm gold light"
+  },
+  {
+   "name": "s3_path",
+   "seeds": [
+    1,
+    2
+   ],
+   "scene": "a long dirt path winding across a meadow with a gentle slope, no water, no road, warm gold light"
+  },
+  {
+   "name": "s4_oak",
+   "seeds": [
+    1,
+    2
+   ],
+   "scene": "a big shady oak tree with soft grass beneath, cool green shade and dappled light"
+  },
+  {
+   "name": "s5_finish",
+   "seeds": [
+    1,
+    2
+   ],
+   "scene": "a red ribbon stretched between two wooden posts at the end of a dirt path, warm gold and amber light"
+  },
+  {
+   "name": "s6_home",
+   "seeds": [
+    1,
+    2
+   ],
+   "scene": "the dirt path home across the meadow at the end of the day, warm amber light"
+  }
+ ]
+}
