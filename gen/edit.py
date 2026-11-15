@@ -8,7 +8,7 @@ from diffusers import QwenImageEditPlusPipeline
 IN = '/w/share/inputs'; OUT = '/w/share/out'
 touch = lambda: os.utime('/w/activity') if os.path.exists('/w/activity') else None
 NEG = 'wings, hair, crest, extra legs, missing legs, extra arms, fused limbs, deformed, blurry, text, watermark, photo, 3d render, open mouth'
-KEEP = ' Keep the same soft painted picture-book style, the same lighting and colors. The grasshopper must look exactly like the grasshopper in the reference sheet: olive green, mustard knitted scarf, round friendly face, no wings, no hair, no crest, two arms, two short middle legs and two long bent hind legs. The ant must look exactly like the ant reference: rust-red, acorn-cap hat, six thin legs. Every leg clearly visible and separate.'
+KEEP = ' Keep everything else exactly as it is: the same painting, the same characters with the same colors and outfits, the same background, the same framing and style. Every leg clearly visible and separate.'
 p = QwenImageEditPlusPipeline.from_pretrained('Qwen/Qwen-Image-Edit-2509', torch_dtype=torch.bfloat16).to('cuda')
 def run(images, instr, path, seed, size):
     im = p(image=images, prompt=instr + KEEP, negative_prompt=NEG, num_inference_steps=40, true_cfg_scale=4.0,
@@ -34,6 +34,6 @@ elif sys.argv[1] == 'kf':
              ('k4', 'Picture 1 is the scene, picture 2 and 3 are reference sheets. In picture 1, the ant takes one small step to the right along the path still holding her seed and looks back over her shoulder with a small kind smile; the grasshopper sits relaxed and smiling. Change nothing else.')]
     prev = base
     for name, instr in steps:
-        outs = [run([prev, G, A], instr, f'{OUT}/kf/spread04_{name}_s{sd}.png', sd, base.size) for sd in (1, 2)]
+        outs = [run([prev], instr.replace('Picture 1 is the scene, picture 2 and 3 are reference sheets. In picture 1, ','In this picture, '), f'{OUT}/kf/spread04_{name}_s{sd}.png', sd, base.size) for sd in (1, 2)]
         prev = outs[0]
 print('DONE', sys.argv[1], flush=True)
