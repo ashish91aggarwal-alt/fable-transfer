@@ -10,17 +10,17 @@ NEG = ('talking, lip movement, open mouth, chewing, extra legs, missing legs, ex
        'extra antennae, extra eyes, face distortion, color shift, camera shake, zoom, pan, cut, text, watermark, flicker, blurry, '
        'wings, static, still picture, low quality, deformed')
 pipe = WanImageToVideoPipeline.from_pretrained('Wan-AI/Wan2.2-I2V-A14B-Diffusers', torch_dtype=torch.bfloat16)
-pipe.enable_model_cpu_offload()
-W, H = 1280, 720
+pipe.to('cuda')
+W, H = 832, 480
 L = lambda f: Image.open(f).convert('RGB').resize((W, H), Image.LANCZOS)
 KF = '/w/share/kf'
 plan = json.load(open(f'/w/share/gen/{sys.argv[1]}.json'))
 for c in plan:
-    for sd in c.get('seeds', [1, 2]):
+    for sd in c.get('seeds', [1]):
         out = f"{OUT}/{sys.argv[1]}_{c['id']}_s{sd}.mp4"
         if os.path.exists(out): continue
         fr = pipe(image=L(f"{KF}/{c['start']}"), last_image=L(f"{KF}/{c['end']}"), prompt=c['prompt'], negative_prompt=NEG,
-                  height=H, width=W, num_frames=81, guidance_scale=3.5, num_inference_steps=40,
+                  height=H, width=W, num_frames=81, guidance_scale=3.5, num_inference_steps=30,
                   generator=torch.Generator('cuda').manual_seed(sd)).frames[0]
         export_to_video(fr, out, fps=16); touch(); print('saved', out, flush=True)
 print('DONE clips', flush=True)
