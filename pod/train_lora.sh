@@ -19,7 +19,7 @@ cd /w && git clone --depth 1 https://github.com/ashish91aggarwal-alt/fable-trans
 SECRET=$SECRET ROOT=/w/share nohup python3 repo/pod/fileserver.py 8000 > /w/fs.log 2>&1 &
 cp -r repo/lora/data /w/lora_data
 git clone --depth 1 https://github.com/ostris/ai-toolkit /w/ait
-cd /w/ait && pip install -q -r requirements.txt && pip install -q -U "huggingface_hub>=0.34" hf_transfer
+cd /w/ait && pip install -q -r requirements.txt && pip install -q hf_transfer
 export HF_HUB_ENABLE_HF_TRANSFER=1
 python3 run.py /w/repo/lora/train.yaml > /w/train.log 2>&1
 echo TRAIN-EXIT $? >> /w/train.log
