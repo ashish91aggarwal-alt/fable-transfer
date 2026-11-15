@@ -1,0 +1,20 @@
+{
+ "cast": {
+  "narrator": {"kokoro": "bf_emma", "exaggeration": 0.35},
+  "penrose":  {"kokoro": "bf_isabella", "exaggeration": 0.6},
+  "tom":      {"kokoro": "bm_george", "exaggeration": 0.45}
+ },
+ "lines": [
+  ["narrator", "Footsteps inside. The quiet lift of a latch. And the door opened onto warmth, and light, and the smell of bread."],
+  ["narrator", "The woman in the doorway was small and round, with grey hair pinned up in a soft knot. She looked at Mara, and at the rain behind her, and her face crinkled into a smile."],
+  ["penrose", "Well now. You've walked a long way, by the look of you. Come in, come in, before the weather follows you."],
+  ["narrator", "She took Mara's wet coat and hung it by the door. Then she fetched a pair of thick wool socks from a basket under the stairs, as if it were the most natural thing in the world."],
+  ["penrose", "Everyone needs dry feet. Put those on, and come through to the fire."],
+  ["narrator", "Curled up on the hearthrug, as close to the fire as it was possible to be, lay a large grey cat. It opened one golden eye, considered Mara for a long moment, and closed it again."],
+  ["penrose", "That's Biscuit. He thinks the fire belongs to him. We let him go on thinking it."],
+  ["narrator", "After a while, the front door opened, and a tall man ducked in under the low beam, his oilskin coat shining wet. This was Tom. When he had finished his supper, he looked across at Mara, and smiled."],
+  ["tom", "You'd like to see the light?"],
+  ["narrator", "She said that she would."],
+  ["tom", "Then you'd better bring your coat. It's a good few steps up. But it's worth it, on a night like this."]
+ ]
+}
