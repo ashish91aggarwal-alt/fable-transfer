@@ -24,6 +24,7 @@ W, H = J.get('w', 1344), J.get('h', 768)
 def gprompt(j): return f"{J.get('prefix','')}{j['scene']}{J.get('suffix','')}"
 GUARDS = {  # mandatory wording for placing a character into a scene (G4 review, 15 Nov 2026); add "place": "<key>" to the job
  "hugo": " Add exactly one hare and no other animal of any kind: no baby animals, no second hare, no tortoise, no extra tail. Medium size, about one third of the picture height, standing on the ground with his feet clearly visible on bare ground or short grass, no flowers in front of him.",
+ "pair": " Exactly two animals in the whole picture: one hare and one tortoise, each appearing once. No baby animals, no extra rabbit, no extra tortoise, no extra tail. Both stand on the ground with feet clearly visible.",
  "hugo_asleep": " Copy the curled sleeping hare from image 2 as it is. Exactly one hare, no other animals.",
  "tilly": " The tortoise faces right. Add exactly one tortoise and keep every animal already in the picture exactly as it is.",
  "wren": " Add exactly one tiny wren and keep every animal already in the picture."}

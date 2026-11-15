@@ -1,0 +1,85 @@
+{
+ "out": "out",
+ "w": 1344,
+ "h": 768,
+ "steps": 4,
+ "guidance": 1.0,
+ "edit": [
+  {
+   "name": "g4d_meadow_pair",
+   "base": "in/s1_meadow_s1.jpg",
+   "refs": [
+    "in/tilly_side_s1_b.jpg",
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "pair",
+   "change": "Image 1 is a background scene. Image 2 shows a tortoise character and image 3 shows a hare character. Paint both characters into image 1: the hare stands on the left on short grass facing the viewer, about one third of the picture height; the tortoise is on the dirt path to the right of the hare, side view facing right, about half the hare's height. Keep each character's exact colors, face, markings and painting style, and keep the background exactly the same. Both characters are about 25% brighter and more vivid than the background so they stand out."
+  },
+  {
+   "name": "g4d_start_pair",
+   "base": "in/s2_start_s2.jpg",
+   "refs": [
+    "in/tilly_side_s1_b.jpg",
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "pair",
+   "change": "Image 1 is a background scene. Image 2 shows a tortoise character and image 3 shows a hare character. Paint both characters into image 1: the hare stands on the left on short grass facing the viewer, about one third of the picture height; the tortoise is on the dirt path to the right of the hare, side view facing right, about half the hare's height. Keep each character's exact colors, face, markings and painting style, and keep the background exactly the same. Both characters are about 25% brighter and more vivid than the background so they stand out."
+  },
+  {
+   "name": "g4d_finish_pair",
+   "base": "in/s5_finish_s2.jpg",
+   "refs": [
+    "in/tilly_side_s1_b.jpg",
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "pair",
+   "change": "Image 1 is a background scene. Image 2 shows a tortoise character and image 3 shows a hare character. Paint both characters into image 1: the hare stands on the left on short grass facing the viewer, about one third of the picture height; the tortoise is on the dirt path to the right of the hare, side view facing right, about half the hare's height. Keep each character's exact colors, face, markings and painting style, and keep the background exactly the same. Both characters are about 25% brighter and more vivid than the background so they stand out."
+  },
+  {
+   "name": "g4d_home_pair",
+   "base": "in/s6_home_s2.jpg",
+   "refs": [
+    "in/tilly_side_s1_b.jpg",
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "pair",
+   "change": "Image 1 is a background scene. Image 2 shows a tortoise character and image 3 shows a hare character. Paint both characters into image 1: the hare stands on the left on short grass facing the viewer, about one third of the picture height; the tortoise is on the dirt path to the right of the hare, side view facing right, about half the hare's height. Keep each character's exact colors, face, markings and painting style, and keep the background exactly the same. Both characters are about 25% brighter and more vivid than the background so they stand out."
+  }
+ ]
+}
