@@ -13,4 +13,3 @@ Automatic check: faster-whisper small.en transcribed each sample and compared it
 Render speed: voice-1/3 model about 0.75x real time on an RTX 4000 Ada ($0.20/h), so a 50-min story costs about $0.13; voice-2/4 model runs on a plain CPU at about 0.8x real time (free).
 
 Audio: voice-2 and voice-4 are in `samples/`. Voice-1 and voice-3 audio stayed on the test pod (no way to copy 24 MB back without a GitHub token on the pod); they can be re-rendered for about $0.15.
-Raw numbers: `asr_report.json`.
