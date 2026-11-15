@@ -18,7 +18,7 @@ echo "installing" > /w/share/STATUS
 pip install -q hf_transfer; export HF_HUB_ENABLE_HF_TRANSFER=1
 pip install -q -U "diffusers>=0.37" transformers accelerate "huggingface_hub>=1.5,<2" > /w/share/pip.log 2>&1
 echo "running" > /w/share/STATUS
-python3 repo/tortoise-hare/cast-job/klein.py both repo/tortoise-hare/cast-g4d/jobs.json > /w/share/job.log 2>&1
+OFFLOAD=1 python3 repo/tortoise-hare/cast-job/klein.py both repo/tortoise-hare/cast-g4d/jobs.json > /w/share/job.log 2>&1
 echo "EXIT $?" >> /w/share/job.log
 cp -r repo/tortoise-hare/cast-g4d/out/. /w/share/out/ 2>/dev/null
 (cd /w/share && ls out > MANIFEST.txt)
