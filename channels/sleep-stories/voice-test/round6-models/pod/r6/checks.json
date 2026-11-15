@@ -1,0 +1,46 @@
+{
+ "qwen3_seed1.wav": {
+  "seconds": 58.0,
+  "wpm": 136,
+  "word_err_pct": 1.5,
+  "median_pitch_hz": 204,
+  "loudness_spread_db": 6.3,
+  "missing": [
+   "grey",
+   "stile"
+  ]
+ },
+ "qwen3_seed2.wav": {
+  "seconds": 57.3,
+  "wpm": 137,
+  "word_err_pct": 1.5,
+  "median_pitch_hz": 249,
+  "loudness_spread_db": 6.1,
+  "missing": [
+   "grey",
+   "stile"
+  ]
+ },
+ "voxcpm2_seed1.wav": {
+  "seconds": 44.5,
+  "wpm": 177,
+  "word_err_pct": 1.5,
+  "median_pitch_hz": 96,
+  "loudness_spread_db": 5.3,
+  "missing": [
+   "grey",
+   "stile"
+  ]
+ },
+ "voxcpm2_seed2.wav": {
+  "seconds": 39.0,
+  "wpm": 201,
+  "word_err_pct": 1.5,
+  "median_pitch_hz": 174,
+  "loudness_spread_db": 3.2,
+  "missing": [
+   "grey",
+   "stile"
+  ]
+ }
+}
