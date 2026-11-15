@@ -1,0 +1,36 @@
+{
+ "s02": {"base": "start_02.png", "steps": [
+   ["k2", "The ant takes one small step forward along the path, still carrying the red berry, antennae tilted slightly forward."],
+   ["k3", "The ant takes another small step forward along the path, still carrying the red berry, a determined little smile."]]},
+ "s03": {"base": "start_03.png", "steps": [
+   ["k2", "The grasshopper raises one hind foot slightly and taps it, eyes still closed, humming with a content closed-mouth smile."]]},
+ "s04": {"base": "spread04_k3_s2.png", "steps": [
+   ["k4", "The ant walks two steps to the right along the path, still holding her seed, and looks back over her shoulder at the grasshopper with a small kind smile. The grasshopper sits relaxed, smiling with mouth closed. Her body is clearly further to the right than before."]]},
+ "s05": {"base": "start_07.png", "steps": [
+   ["k2", "The ant has walked a little further along the path to the right, still carrying the acorn, a few more orange leaves in the air."]]},
+ "s06": {"base": "pantry_s2.png", "steps": [
+   ["k1fix", "Close the ant's mouth into a small proud closed smile. Change nothing else."]]},
+ "s07": {"base": "antgrass_shot09.png", "steps": [
+   ["k1fix", "Redraw only the grasshopper: remove the wings and the orange crest on his head, give him a round friendly green face with big round eyes and a closed smile, keep his mustard scarf and small guitar, olive green body, two arms, two short middle legs and two long bent hind legs. Keep the autumn background and falling leaves exactly the same."],
+   ["k2", "The grasshopper sways to the left while strumming the small guitar, happy closed-mouth smile."],
+   ["k3", "The grasshopper strums the guitar with eyes closed in joy, head tilted back, singing with a small round open mouth."],
+   ["k4", "The grasshopper sways to the right, lifting one hind foot, happy closed-mouth smile, still holding the guitar."]]},
+ "s08": {"base": "start_10.png", "steps": [
+   ["k2", "The grasshopper hugs himself with both arms and shivers, worried eyes, mouth closed."],
+   ["k3", "The grasshopper bends down and lifts a dry leaf with one hand to look under it, worried face, mouth closed."],
+   ["k4", "The grasshopper lowers the leaf and his head drops sadly, eyes down, mouth closed."]]},
+ "s09": {"base": "antgrass_shot11.png", "steps": [
+   ["k1fix", "Make the picture clearer with stronger contrast: deep navy evening sky, bright white snow, crisp shapes and richer colors. Keep the same characters, poses and composition."],
+   ["k2", "The grasshopper hunches lower and wraps his arms tightly around himself, shivering, sad eyes, mouth closed."]]},
+ "s10": {"base": "start_12.png", "steps": [
+   ["k2", "The grasshopper raises one hand toward the round wooden door, about to knock, hopeful worried face, mouth closed."],
+   ["k3", "The grasshopper's knuckles touch the round wooden door as he knocks, mouth closed."],
+   ["k4", "The grasshopper lowers his hand and looks up at the door with hopeful pleading eyes, mouth closed."]]},
+ "s11": {"base": "start_13.png", "steps": [
+   ["k2", "The ant tilts her head to one side, thinking, one hand raised to her chin, mouth closed."]]},
+ "s12": {"base": "start_14.png", "steps": [
+   ["k2", "The ant smiles more warmly with a welcoming closed-mouth smile and holds the door wide open; warm light spills further over the snow."]]},
+ "s13": {"base": "start_15.png", "steps": [
+   ["k2", "The grasshopper lifts his spoon toward his mouth, happy relieved face, mouth closed."],
+   ["k3", "The grasshopper lowers his spoon and looks at the ant with grateful soft eyes and a small closed smile."]]}
+}

@@ -26,6 +26,20 @@ if sys.argv[1] == 'jobs':
     }
     for name, (imgs, instr) in jobs.items():
         for sd in (1, 2): run(imgs, instr, f'{OUT}/edit/{name}_s{sd}.png', sd, imgs[0].size)
+elif sys.argv[1] == 'plan':
+    import json
+    P = json.load(open('/w/share/gen/keyframes.json')); only = sys.argv[2:] or list(P)
+    SIMPLE = ' Keep everything else exactly as it is: the same painting, the same characters with the same colors and outfits, the same background, the same framing and style. Every leg clearly visible and separate. No wings on the grasshopper.'
+    os.makedirs(f'{OUT}/kf', exist_ok=True)
+    for sp in only:
+        prev = L(P[sp]['base']); prev.save(f'{OUT}/kf/{sp}_k1base.png')
+        for name, instr in P[sp]['steps']:
+            outs = []
+            for sd in (1, 2):
+                im = p(image=[prev], prompt='In this picture, ' + instr + SIMPLE, negative_prompt=NEG, num_inference_steps=40, true_cfg_scale=4.0,
+                       generator=torch.Generator('cuda').manual_seed(sd)).images[0].resize(prev.size, Image.LANCZOS)
+                im.save(f'{OUT}/kf/{sp}_{name}_s{sd}.png'); touch(); print('saved', sp, name, sd, flush=True); outs.append(im)
+            prev = outs[0]
 elif sys.argv[1] == 'kf':
     os.makedirs(f'{OUT}/kf', exist_ok=True)
     base = L('start_04.png'); base.save(f'{OUT}/kf/spread04_k1.png')
