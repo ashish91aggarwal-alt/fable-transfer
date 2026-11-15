@@ -1,0 +1,4 @@
+[
+ {"out": "v1_plain_script_expressive", "text": "v1_plain_script.txt", "ref": "ref_narrator.wav", "exaggeration": 0.7, "cfg": 0.3},
+ {"out": "v2_drawing_in_expressive",  "text": "v2_drawing_in_script.txt", "ref": "ref_narrator.wav", "exaggeration": 0.7, "cfg": 0.3}
+]
