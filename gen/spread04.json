@@ -1,0 +1,6 @@
+[
+ {"id": "c1", "start": "spread04_k1.png", "end": "spread04_k2_s1.png",
+  "prompt": "Static camera, locked tripod. Painted children's picture book. The green grasshopper slowly lowers his waving arm and smiles; the red ant slowly turns her head to one side. Grass and flowers sway gently in a light breeze. Same characters, same shapes, same colors, same number of legs. Mouths stay closed. Gentle, slow storybook animation."},
+ {"id": "c2", "start": "spread04_k2_s1.png", "end": "spread04_k3_s2.png",
+  "prompt": "Static camera, locked tripod. Painted children's picture book. The green grasshopper begins to laugh, his eyes squeeze shut and his shoulders lift once; the red ant stays still holding her seed. Grass sways gently. Same characters, same shapes, same colors, same number of legs. Gentle, slow storybook animation."}
+]
