@@ -1,0 +1,17 @@
+{
+ "seed": 7,
+ "voice_lufs": -23.0,
+ "note_phrases": 17,
+ "A_voice_rain": {
+  "lufs": -23.0,
+  "peak": 0.532
+ },
+ "B_plus_drone": {
+  "lufs": -23.0,
+  "peak": 0.529
+ },
+ "C_plus_notes": {
+  "lufs": -23.0,
+  "peak": 0.528
+ }
+}
