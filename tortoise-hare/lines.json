@@ -1,0 +1,326 @@
+[
+ {
+  "id": "n1",
+  "speaker": "narrator",
+  "text": "The Tortoise and the Hare.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n2",
+  "speaker": "narrator",
+  "text": "Tilly the tortoise lived in a sunny meadow.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n3",
+  "speaker": "narrator",
+  "text": "She walked slowly, and she liked it that way.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n4",
+  "speaker": "narrator",
+  "text": "Hugo the hare lived in the meadow too.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n5",
+  "speaker": "narrator",
+  "text": "Hugo could run very, very fast.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "c1",
+  "speaker": "hugo",
+  "text": "I am the fastest in the whole meadow!",
+  "voice_id": "HUGO_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "n6",
+  "speaker": "narrator",
+  "text": "One day, Hugo saw Tilly walking by.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "c2",
+  "speaker": "hugo",
+  "text": "You are so slow, Tilly!",
+  "voice_id": "HUGO_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "n7",
+  "speaker": "narrator",
+  "text": "Tilly felt a little sad. Then she took a deep breath.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "c3",
+  "speaker": "tilly",
+  "text": "Let's have a race, Hugo.",
+  "voice_id": "TILLY_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "n8",
+  "speaker": "narrator",
+  "text": "Hugo laughed, but he said yes.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n9",
+  "speaker": "narrator",
+  "text": "A little wren sat on the fence to watch.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n10",
+  "speaker": "narrator",
+  "text": "Hugo and Tilly stood side by side. One, two, three, go!",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n11",
+  "speaker": "narrator",
+  "text": "Hugo ran off like the wind.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n12",
+  "speaker": "narrator",
+  "text": "Tilly walked. Step, step, step.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n13",
+  "speaker": "narrator",
+  "text": "Can you count Tilly's steps with me? One, two, three.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n14",
+  "speaker": "narrator",
+  "text": "Tilly did not stop.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n15",
+  "speaker": "narrator",
+  "text": "Hugo looked back. Tilly was far, far behind.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "c4",
+  "speaker": "hugo",
+  "text": "I have lots of time. I will take a little nap.",
+  "voice_id": "HUGO_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "n16",
+  "speaker": "narrator",
+  "text": "Hugo yawned, and he closed his eyes.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n17",
+  "speaker": "narrator",
+  "text": "Soon he was fast asleep.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n18",
+  "speaker": "narrator",
+  "text": "Tilly walked past the sleeping hare. Step, step, step.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n19",
+  "speaker": "narrator",
+  "text": "The sun grew hot, and Tilly felt tired.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "c5",
+  "speaker": "tilly",
+  "text": "One more step. And one more.",
+  "voice_id": "TILLY_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "n20",
+  "speaker": "narrator",
+  "text": "She kept on going.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n21",
+  "speaker": "narrator",
+  "text": "Can you see the red ribbon up ahead?",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n22",
+  "speaker": "narrator",
+  "text": "Step, step, step. Tilly crossed the line!",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n23",
+  "speaker": "narrator",
+  "text": "The little wren sang, and Tilly felt so proud.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n24",
+  "speaker": "narrator",
+  "text": "Just then, Hugo woke up. He ran as fast as he could.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n25",
+  "speaker": "narrator",
+  "text": "But Tilly was already there. Hugo felt surprised.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "c6",
+  "speaker": "hugo",
+  "text": "You won, Tilly. I am sorry I laughed.",
+  "voice_id": "HUGO_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "c7",
+  "speaker": "tilly",
+  "text": "Thank you, Hugo. Let's walk home together.",
+  "voice_id": "TILLY_VOICE_ID",
+  "speed": 0.85,
+  "stability": 0.38,
+  "style": 0.25
+ },
+ {
+  "id": "n26",
+  "speaker": "narrator",
+  "text": "So the two friends walked home, side by side.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n27",
+  "speaker": "narrator",
+  "text": "Slow and steady wins the race.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n28",
+  "speaker": "narrator",
+  "text": "So keep going, step by step, just like Tilly.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ },
+ {
+  "id": "n29",
+  "speaker": "narrator",
+  "text": "The End.",
+  "voice_id": "NARRATOR_VOICE_ID",
+  "speed": 1.0,
+  "stability": 0.35,
+  "style": 0.5
+ }
+]
