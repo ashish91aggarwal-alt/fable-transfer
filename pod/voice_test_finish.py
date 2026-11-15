@@ -7,7 +7,7 @@ os.makedirs(f"{SH}/s", exist_ok=True)
 for src, dst in MAP.items():                       # pod renders -> neutral mp3
     for w in glob.glob(f"{SH}/{src}_*.wav"):
         part = os.path.basename(w)[len(src) + 1:-4]
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", w, "-b:a", "96k", f"{SH}/s/{dst}_{part}.mp3"], check=True)
+        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", w, "-af", os.environ.get("TEMPO", "atempo=0.85"), "-b:a", "96k", f"{SH}/s/{dst}_{part}.mp3"], check=True)  # slow to sleep pace, pitch kept
 for m in glob.glob(f"{REPO}/samples/*.mp3"):       # samples made elsewhere (pushed to repo)
     subprocess.run(["cp", m, f"{SH}/s/"])
 from faster_whisper import WhisperModel
