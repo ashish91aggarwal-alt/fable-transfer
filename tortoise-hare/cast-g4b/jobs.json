@@ -1,0 +1,198 @@
+{
+ "out": "out",
+ "w": 1344,
+ "h": 768,
+ "steps": 4,
+ "guidance": 1.0,
+ "edit": [
+  {
+   "name": "g4b_meadow_hugo",
+   "base": "in/s1_meadow_s1.jpg",
+   "refs": [
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "hugo",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing in the foreground on the left on short grass, facing the viewer. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_meadow_both",
+   "base": "out:g4b_meadow_hugo",
+   "refs": [
+    "in/tilly_side_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "tilly",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path to the right of the hare, side view facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_start_hugo",
+   "base": "in/s2_start_s2.jpg",
+   "refs": [
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "hugo",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing in the foreground on the left on short grass, facing the viewer. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_start_both",
+   "base": "out:g4b_start_hugo",
+   "refs": [
+    "in/tilly_side_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "tilly",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path to the right of the hare, side view facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_finish_hugo",
+   "base": "in/s5_finish_s2.jpg",
+   "refs": [
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "hugo",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing in the foreground on the left, facing the viewer. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_finish_both",
+   "base": "out:g4b_finish_hugo",
+   "refs": [
+    "in/tilly_side_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "tilly",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path to the right of the hare, side view facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_oak_hugo",
+   "base": "in/s4_oak_s2.jpg",
+   "refs": [
+    "in/hugo_sleep_s2_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "hugo_asleep",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, curled up asleep on the grass at the foot of the oak on the left. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_oak_both",
+   "base": "out:g4b_oak_hugo",
+   "refs": [
+    "in/tilly_walk_s2_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "raw": true,
+   "place": "tilly",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, walking on the grass to the right of the sleeping hare, side view facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_path_tilly",
+   "base": "in/s3_path_s1.jpg",
+   "refs": [
+    "in/tilly_side_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "raw": true,
+   "place": "tilly",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path in the lower middle, side view facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_home_hugo",
+   "base": "in/s6_home_s2.jpg",
+   "refs": [
+    "in/hugo_front_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "raw": true,
+   "place": "hugo",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing in the foreground on the left on short grass, facing the viewer. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  },
+  {
+   "name": "g4b_home_both",
+   "base": "out:g4b_home_hugo",
+   "refs": [
+    "in/tilly_side_s1_b.jpg"
+   ],
+   "seeds": [
+    1,
+    2,
+    3
+   ],
+   "raw": true,
+   "place": "tilly",
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path to the right of the hare, side view facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. The character is about 25% brighter and more vivid than the background so it stands out."
+  }
+ ]
+}

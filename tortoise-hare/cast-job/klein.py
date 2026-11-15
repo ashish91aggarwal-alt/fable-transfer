@@ -9,6 +9,7 @@ jobs.json (paths relative to it):
   "generate":[{"name":"s1","seeds":[1,2],"scene":"..."}],
   "edit":[{"name":"tilly_side","base":"refs/T1.jpg","seeds":[1,2,3],"change":"..."},
          {"name":"scene_tilly","base":"scene.jpg","refs":["cast/tilly.jpg"],"seeds":[1,2],"change":"...","raw":true}] }
+An edit with "place": "hugo|hugo_asleep|tilly|wren" appends the fixed size, count and facing wording (never leave it out).
 An edit with "raw": true sends its "change" text as the whole prompt (needed when image 2 is a character to place).
 Edit prompt = the change, then "Keep everything else exactly the same." One image in, one change. Writes <name>_s<seed>.png,
 timings.txt (load seconds, seconds per picture, peak VRAM) and touches /w/activity per picture (idle kill switch).
@@ -21,8 +22,13 @@ rel = lambda p: p if os.path.isabs(p) else os.path.join(D, p)
 OUT = rel(J.get('out', 'out')); os.makedirs(OUT, exist_ok=True)
 W, H = J.get('w', 1344), J.get('h', 768)
 def gprompt(j): return f"{J.get('prefix','')}{j['scene']}{J.get('suffix','')}"
+GUARDS = {  # mandatory wording for placing a character into a scene (G4 review, 15 Nov 2026); add "place": "<key>" to the job
+ "hugo": " Hugo stands upright at the same distance from the viewer as the tortoise, so his feet are level with hers; his head is as high as three tortoise shells stacked and the tortoise only reaches his knees. Exactly two animals: one hare and one tortoise, no baby animals, no extra tail. His feet are clearly visible on bare ground or short grass, no flowers in front of him.",
+ "hugo_asleep": " Copy the curled sleeping hare from image 2 as it is. Exactly one hare, no other animals.",
+ "tilly": " The tortoise faces right. Exactly one tortoise, no other animals.",
+ "wren": " Exactly one tiny wren, no other new animals."}
 def eprompt(j):
-    if j.get('raw'): return j['change']
+    if j.get('raw'): return j['change'] + GUARDS.get(j.get('place'), '')
     return f"{j['change']}. Keep everything else exactly the same: same character, colors, painting style and background."
 if mode == 'dry':
     for j in J.get('edit', []): print('EDIT', j['name'], j['seeds'], '<-', j['base'], '|', eprompt(j))
