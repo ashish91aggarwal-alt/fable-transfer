@@ -15,5 +15,6 @@ else:
     from voxcpm import VoxCPM
     m = VoxCPM.from_pretrained("openbmb/VoxCPM2", load_denoiser=False)
     for seed in (1, 2):
-        wav = m.generate(text=f"({desc}){text}", cfg_value=2.0, inference_timesteps=10, seed=seed)
+        torch.manual_seed(seed)
+        wav = m.generate(text=f"({desc}){text}", cfg_value=2.0, inference_timesteps=10)
         sf.write(f"{out}/voxcpm2_seed{seed}.wav", wav, m.tts_model.sample_rate); print("voxcpm", seed, len(wav) / m.tts_model.sample_rate, flush=True)
