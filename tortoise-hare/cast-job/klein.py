@@ -25,8 +25,8 @@ def gprompt(j): return f"{J.get('prefix','')}{j['scene']}{J.get('suffix','')}"
 GUARDS = {  # mandatory wording for placing a character into a scene (G4 review, 15 Nov 2026); add "place": "<key>" to the job
  "hugo": " Hugo stands upright at the same distance from the viewer as the tortoise, so his feet are level with hers; his head is as high as three tortoise shells stacked and the tortoise only reaches his knees. Exactly two animals: one hare and one tortoise, no baby animals, no extra tail. His feet are clearly visible on bare ground or short grass, no flowers in front of him.",
  "hugo_asleep": " Copy the curled sleeping hare from image 2 as it is. Exactly one hare, no other animals.",
- "tilly": " The tortoise faces right. Exactly one tortoise, no other animals.",
- "wren": " Exactly one tiny wren, no other new animals."}
+ "tilly": " The tortoise faces right. Add exactly one tortoise and keep every animal already in the picture exactly as it is.",
+ "wren": " Add exactly one tiny wren and keep every animal already in the picture."}
 def eprompt(j):
     if j.get('raw'): return j['change'] + GUARDS.get(j.get('place'), '')
     return f"{j['change']}. Keep everything else exactly the same: same character, colors, painting style and background."
