@@ -7,7 +7,9 @@ jobs.json (paths relative to it):
   "prefix":"children's picture-book illustration, soft gouache and watercolor texture, warm golden light, ",
   "suffix":", no text",
   "generate":[{"name":"s1","seeds":[1,2],"scene":"..."}],
-  "edit":[{"name":"tilly_side","base":"refs/T1.jpg","seeds":[1,2,3],"change":"..."}] }
+  "edit":[{"name":"tilly_side","base":"refs/T1.jpg","seeds":[1,2,3],"change":"..."},
+         {"name":"scene_tilly","base":"scene.jpg","refs":["cast/tilly.jpg"],"seeds":[1,2],"change":"...","raw":true}] }
+An edit with "raw": true sends its "change" text as the whole prompt (needed when image 2 is a character to place).
 Edit prompt = the change, then "Keep everything else exactly the same." One image in, one change. Writes <name>_s<seed>.png,
 timings.txt (load seconds, seconds per picture, peak VRAM) and touches /w/activity per picture (idle kill switch).
 Offload is NEVER silent: set OFFLOAD=1 to enable it. Pictures that already exist are skipped (safe to rerun).
@@ -19,7 +21,9 @@ rel = lambda p: p if os.path.isabs(p) else os.path.join(D, p)
 OUT = rel(J.get('out', 'out')); os.makedirs(OUT, exist_ok=True)
 W, H = J.get('w', 1344), J.get('h', 768)
 def gprompt(j): return f"{J.get('prefix','')}{j['scene']}{J.get('suffix','')}"
-def eprompt(j): return f"{j['change']}. Keep everything else exactly the same: same character, colors, painting style and background."
+def eprompt(j):
+    if j.get('raw'): return j['change']
+    return f"{j['change']}. Keep everything else exactly the same: same character, colors, painting style and background."
 if mode == 'dry':
     for j in J.get('edit', []): print('EDIT', j['name'], j['seeds'], '<-', j['base'], '|', eprompt(j))
     for j in J.get('generate', []): print('GEN ', j['name'], j['seeds'], '|', gprompt(j))
@@ -44,8 +48,13 @@ def run(name, seed, w=None, h=None, **kw):
     log.write(f'{name}_s{seed} {time.time()-t:.1f}s peak_vram_gb {torch.cuda.max_memory_allocated()/1e9:.1f}\n'); log.flush()
 if mode in ('edit', 'both'):
     for j in J.get('edit', []):
-        base = Image.open(rel(j['base'])).convert('RGB'); bw, bh = (base.width // 16) * 16, (base.height // 16) * 16  # keep the source shape: never stretch
-        for s in j['seeds']: run(j['name'], s, w=bw, h=bh, image=base, prompt=eprompt(j))
+        for s in j['seeds']:
+            # base may be "out:<name>" = the same seed's output of an earlier job (chains: scene -> +Tilly -> +Hugo)
+            bp = j['base']; bp = os.path.join(OUT, f"{bp[4:]}_s{s}.png") if bp.startswith('out:') else rel(bp)
+            if not os.path.exists(bp): continue
+            base = Image.open(bp).convert('RGB'); bw, bh = (base.width // 16) * 16, (base.height // 16) * 16  # keep the source shape: never stretch
+            imgs = [base] + [Image.open(rel(r)).convert('RGB') for r in j.get('refs', [])]  # refs: ONE character picture at a time, never two
+            run(j['name'], s, w=bw, h=bh, image=imgs if len(imgs) > 1 else base, prompt=eprompt(j))
 if mode in ('generate', 'both'):
     for j in J.get('generate', []):
         for s in j['seeds']: run(j['name'], s, prompt=gprompt(j))

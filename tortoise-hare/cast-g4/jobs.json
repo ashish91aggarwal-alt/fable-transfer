@@ -1,0 +1,113 @@
+{
+ "out": "out",
+ "w": 1344,
+ "h": 768,
+ "steps": 4,
+ "guidance": 1.0,
+ "edit": [
+  {
+   "name": "g4_meadow_tilly",
+   "base": "in/s1_meadow_s1.jpg",
+   "refs": [
+    "in/tilly_side_s1.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path in the lower middle, side view facing right, tortoise about one fifth of the picture width. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_meadow_both",
+   "base": "out:g4_meadow_tilly",
+   "refs": [
+    "in/hugo_front_s1.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the grass to the left of the tortoise, small hare about one third of the picture height, facing the viewer. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_oak_hugo",
+   "base": "in/s4_oak_s2.jpg",
+   "refs": [
+    "in/hugo_sleep_s2.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, curled up asleep on the grass in the shade under the tree trunk, about one quarter of the picture width. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_oak_both",
+   "base": "out:g4_oak_hugo",
+   "refs": [
+    "in/tilly_walk_s2.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, walking on the grass to the right of the sleeping hare, side view facing right, tortoise about one fifth of the picture width. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_start_tilly",
+   "base": "in/s2_start_s2.jpg",
+   "refs": [
+    "in/tilly_side_s1.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path in the lower middle, side view facing right, small tortoise. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_start_both",
+   "base": "out:g4_start_tilly",
+   "refs": [
+    "in/hugo_front_s1.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the grass to the left of the tortoise, small hare, facing right. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_finish_tilly",
+   "base": "in/s5_finish_s2.jpg",
+   "refs": [
+    "in/tilly_side_s1.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, standing on the dirt path in front of the red ribbon, side view facing right, small tortoise. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  },
+  {
+   "name": "g4_finish_wren",
+   "base": "out:g4_finish_tilly",
+   "refs": [
+    "in/wren_twig_s2.jpg"
+   ],
+   "seeds": [
+    1,
+    2
+   ],
+   "raw": true,
+   "change": "Image 1 is a background scene. Image 2 shows a character. Paint the character from image 2 into image 1, perched on top of the wooden post on the right, tiny bird. Keep the character's exact colors, face, markings and painting style, and keep the background exactly the same. Add nothing else."
+  }
+ ]
+}
