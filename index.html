@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice Reverser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a night-studio screen. A living sound ring fills the top, a tape strip sits under it, three round keys at thumb height. Single dark theme by choice. */
+:root{
+  color-scheme:dark;
+  --bg:#080b10; --surface:#111722; --ink:#eef3f7; --muted:#8793a3; --line:#222c3a;
+  --rec:#ff5440; --play:#2dd4bf; --rev:#a78bfa;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(120% 70% at 50% 28%, #121a27 0%, var(--bg) 62%) var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-tap-highlight-color:transparent}
+main{max-width:440px;min-height:100%;margin:0 auto;padding:20px 16px 28px;display:flex;flex-direction:column;align-items:center;gap:14px}
+h1{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.01em;margin:0;align-self:flex-start}
+.stage{position:relative;width:min(100%,360px);aspect-ratio:1}
+#orb{position:absolute;inset:0;width:100%;height:100%}
+.readout{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:none}
+#time{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:30px}
+#mode{font-size:11px;font-weight:600;letter-spacing:.22em;color:var(--muted);transition:color .3s}
+.strip{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.strip span{font-size:13px;font-weight:500;color:var(--muted)}
+#wave{width:100%;height:56px;display:block}
+.keys{display:flex;align-items:flex-start;justify-content:center;gap:26px;margin-top:6px}
+.key{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;padding:0;color:var(--ink);font:600 14px var(--body);cursor:pointer}
+.cap{--c:var(--play);position:relative;width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 16%,var(--surface));border:2px solid var(--c);color:var(--c);transition:transform .12s, background .25s, color .25s}
+#rec .cap{--c:var(--rec);width:88px;height:88px}
+#rev .cap{--c:var(--rev)}
+#play .cap,#rev .cap{margin-top:10px}
+.key:active .cap{transform:scale(.93)}
+.key:focus-visible{outline:none}
+.key:focus-visible .cap{outline:3px solid var(--ink);outline-offset:4px}
+.cap svg{width:28px;height:28px;fill:currentColor}
+.cap .stop{display:none}
+.dot{width:34px;height:34px;border-radius:50%;background:var(--rec);transition:border-radius .25s, transform .25s, background .25s}
+.key.live .cap{background:var(--c);color:var(--bg)}
+.key.live .cap .go{display:none}
+.key.live .cap .stop{display:block}
+.key.live .dot{border-radius:8px;transform:scale(.78);background:var(--bg)}
+.key.live .cap::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--c);animation:ring 1.4s ease-out infinite}
+@keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(1.55);opacity:0}}
+#status{color:var(--muted);font-size:14px;margin:0;text-align:center;min-height:2.9em;max-width:34ch}
+@media (prefers-reduced-motion: reduce){.key.live .cap::after{animation:none}.cap,.dot{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Voice Reverser</h1>
+
+  <div class="stage">
+    <canvas id="orb" aria-hidden="true"></canvas>
+    <div class="readout"><span id="time">0:01.2</span><span id="mode">READY</span></div>
+  </div>
+
+  <div class="strip">
+    <span id="label">Example sound: rising tone</span>
+    <canvas id="wave" aria-hidden="true"></canvas>
+  </div>
+
+  <div class="keys">
+    <button class="key" id="rev" type="button">
+      <span class="cap"><svg class="go" viewBox="0 0 24 24"><path d="M11 5L2 12l9 7zM22 5l-9 7 9 7z"/></svg><svg class="stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></span>
+      <span id="revText">Reverse</span>
+    </button>
+    <button class="key" id="rec" type="button">
+      <span class="cap"><span class="dot"></span></span>
+      <span id="recText">Record</span>
+    </button>
+    <button class="key" id="play" type="button">
+      <span class="cap"><svg class="go" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg><svg class="stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></span>
+      <span id="playText">Play</span>
+    </button>
+  </div>
+
+  <p id="status" role="status">Tap Record and speak. Tap again to stop. Then play it forwards or in reverse.</p>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const AC = window.AudioContext || window.webkitAudioContext;
+const calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COL = { idle:[122,140,160], rec:[255,84,64], play:[45,212,191], rev:[167,139,250] };
+const NAME = { idle:'READY', rec:'RECORDING', play:'PLAYING', rev:'REVERSE' };
+
+let ctx, buf, rbuf, src, playAn, recAn, activeAn = null, fd;
+let mode = 'idle', playT0 = 0, progress = -1;
+let rec, stream, micNode, chunks = [], recStart = 0, recHist = [], histAcc = 0;
+
+const audio = () => (ctx = ctx || new AC());
+const say = t => { $('status').textContent = t; };
+const clock = s => { s = Math.max(0, s); return Math.floor(s / 60) + ':' + (s % 60).toFixed(1).padStart(4, '0'); };
+function setTime(s){ const t = clock(s); if ($('time').textContent !== t) $('time').textContent = t; }
+
+function setMode(m){
+  mode = m;
+  $('mode').textContent = NAME[m]; $('mode').style.color = m === 'idle' ? '' : 'rgb(' + COL[m] + ')';
+  for (const k of ['rec','play','rev']) $(k).classList.toggle('live', k === m);
+  $('recText').textContent = m === 'rec' ? 'Stop' : 'Record';
+  $('playText').textContent = m === 'play' ? 'Stop' : 'Play';
+  $('revText').textContent = m === 'rev' ? 'Stop' : 'Reverse';
+}
+
+function analyser(toSpeakers){
+  const a = audio(), n = a.createAnalyser();
+  n.fftSize = 256; n.smoothingTimeConstant = .78;
+  if (toSpeakers) n.connect(a.destination);
+  else { const g = a.createGain(); g.gain.value = 0; n.connect(g); g.connect(a.destination); }
+  fd = fd || new Uint8Array(n.frequencyBinCount);
+  return n;
+}
+
+function reversed(b){
+  const r = audio().createBuffer(b.numberOfChannels, b.length, b.sampleRate);
+  for (let c = 0; c < b.numberOfChannels; c++){
+    const d = Float32Array.from(b.getChannelData(c)); d.reverse(); r.copyToChannel(d, c);
+  }
+  return r;
+}
+
+function setBuffer(b, name){
+  buf = b; rbuf = reversed(b); peaks = null;
+  $('label').textContent = name; setTime(b.duration); drawStrip();
+}
+
+/* ---------- playback ---------- */
+function stopPlay(){
+  if (src){ src.onended = null; try{ src.stop(); }catch(e){} src = null; }
+  if (mode === 'play' || mode === 'rev'){ setMode('idle'); activeAn = null; progress = -1; if (buf){ setTime(buf.duration); drawStrip(); } }
+}
+
+async function play(which){
+  if (mode === which){ stopPlay(); return; }
+  if (mode === 'rec') return;
+  stopPlay();
+  const a = audio();
+  try{ await a.resume(); }catch(e){}
+  playAn = playAn || analyser(true);
+  src = a.createBufferSource(); src.buffer = which === 'rev' ? rbuf : buf; src.connect(playAn);
+  src.onended = stopPlay;
+  try{ src.start(); }catch(e){ src = null; say('This device refused to play sound. Turn off silent mode and try again.'); return; }
+  playT0 = a.currentTime; activeAn = playAn; setMode(which);
+  say(which === 'rev' ? 'Playing backwards.' : 'Playing.');
+}
+
+/* ---------- recording ---------- */
+async function load(blob){
+  say('Preparing your recording…');
+  try{
+    const ab = await blob.arrayBuffer();
+    const decoded = await new Promise((ok, no) => { const p = audio().decodeAudioData(ab, ok, no); if (p && p.catch) p.catch(no); });
+    if (decoded.duration < 0.05) throw new Error('empty');
+    setBuffer(decoded, 'Your recording');
+    say('Recording ready. Tap Play or Reverse.');
+  }catch(e){
+    setBuffer(buf, $('label').textContent === 'Recording…' ? 'Example sound: rising tone' : $('label').textContent);
+    say('That recording could not be read. Try recording again.');
+  }
+}
+
+async function onRec(){
+  if (mode === 'rec'){ rec.stop(); return; }
+  stopPlay();
+  if (!navigator.mediaDevices || !window.MediaRecorder){ say('This browser cannot record sound. Open the app in Safari or Chrome.'); return; }
+  const a = audio();
+  try{ a.resume(); }catch(e){}
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  }catch(e){
+    say('The microphone is not available. Open this app from its web link in Safari or Chrome and allow the microphone.');
+    return;
+  }
+  recAn = recAn || analyser(false);
+  micNode = a.createMediaStreamSource(stream); micNode.connect(recAn);
+  chunks = []; recHist = []; histAcc = 0;
+  rec = new MediaRecorder(stream);
+  rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  rec.onstop = () => {
+    stream.getTracks().forEach(t => t.stop());
+    try{ micNode.disconnect(); }catch(e){}
+    activeAn = null; setMode('idle');
+    load(new Blob(chunks, { type: rec.mimeType }));
+  };
+  rec.start(); recStart = performance.now(); activeAn = recAn; setMode('rec');
+  $('label').textContent = 'Recording…'; say('Recording. Tap Stop when you finish.');
+}
+
+/* ---------- tape strip ---------- */
+let peaks = null;
+function fit(cv){
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)){ cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+  return [g, w, h];
+}
+function drawStrip(){
+  const [g, w, h] = fit($('wave')), bars = Math.floor(w / 4);
+  if (mode === 'rec'){
+    const from = Math.max(0, recHist.length - bars);
+    g.fillStyle = 'rgb(' + COL.rec + ')';
+    for (let i = from; i < recHist.length; i++){
+      const bh = Math.max(2, Math.min(1, recHist[i] * 2.6) * (h - 4));
+      g.globalAlpha = .45 + .55 * (i - from) / bars;
+      g.fillRect((i - from) * 4, (h - bh) / 2, 2.5, bh);
+    }
+    g.globalAlpha = 1; return;
+  }
+  if (!buf) return;
+  if (!peaks || peaks.length !== bars){
+    const data = buf.getChannelData(0), step = Math.max(1, Math.floor(data.length / bars)); let max = .05; peaks = [];
+    for (let i = 0; i < bars; i++){
+      let p = 0; for (let j = i * step, e = Math.min(j + step, data.length); j < e; j += 8){ const v = Math.abs(data[j]); if (v > p) p = v; }
+      peaks.push(p); if (p > max) max = p;
+    }
+    peaks = peaks.map(p => p / max);
+  }
+  const hot = 'rgb(' + COL[mode === 'rev' ? 'rev' : 'play'] + ')';
+  for (let i = 0; i < bars; i++){
+    const bh = Math.max(2, peaks[i] * (h - 4)), x = i / bars;
+    const done = progress >= 0 && (mode === 'rev' ? x >= progress : x <= progress);
+    g.fillStyle = done ? hot : 'rgb(' + COL.idle + ')'; g.globalAlpha = done ? 1 : .5;
+    g.fillRect(i * 4, (h - bh) / 2, 2.5, bh);
+  }
+  g.globalAlpha = 1;
+  if (progress >= 0){ g.fillStyle = '#fff'; g.fillRect(Math.min(w - 2, progress * w), 0, 2, h); }
+}
+
+/* ---------- sound ring ---------- */
+const N = 96, lv = new Float32Array(N), col = COL.idle.slice(), parts = [];
+let rot = 0, last = 0, level = 0;
+
+function frame(t){
+  const dt = Math.min(.05, (t - last) / 1000 || 0); last = t;
+  const a = ctx;
+
+  // clock, progress, recording history
+  if (mode === 'play' || mode === 'rev'){
+    const p = Math.min(1, (a.currentTime - playT0) / buf.duration);
+    progress = mode === 'rev' ? 1 - p : p;
+    setTime(mode === 'rev' ? buf.duration * (1 - p) : buf.duration * p);
+    drawStrip();
+  } else if (mode === 'rec'){
+    setTime((performance.now() - recStart) / 1000);
+    histAcc += dt; if (histAcc > .05){ histAcc = 0; recHist.push(level); }
+    drawStrip();
+  }
+
+  // levels per bar: live spectrum when sound is flowing, a slow breath when idle
+  if (activeAn) activeAn.getByteFrequencyData(fd);
+  let sum = 0;
+  for (let i = 0; i < N; i++){
+    const k = i < N / 2 ? i : N - 1 - i;
+    let v = activeAn ? Math.pow(fd[2 + k] / 255, 1.25) : .07 + .05 * Math.sin(t * .0012 + k * .35) * Math.sin(t * .0007 + k * .11);
+    lv[i] += (v - lv[i]) * Math.min(1, dt * (v > lv[i] ? 22 : 9));
+    sum += lv[i];
+  }
+  level += (sum / N - level) * Math.min(1, dt * 12);
+  for (let i = 0; i < 3; i++) col[i] += (COL[mode][i] - col[i]) * Math.min(1, dt * 7);
+  const c = Math.round(col[0]) + ',' + Math.round(col[1]) + ',' + Math.round(col[2]);
+  if (!calm) rot += dt * (mode === 'rev' ? -.7 : mode === 'play' ? .7 : mode === 'rec' ? .18 : .06);
+
+  const [g, w, h] = fit($('orb')), cx = w / 2, cy = h / 2, R = w * .27, L = w * .19;
+  const pulse = 1 + level * .12;
+
+  // glow
+  const glow = g.createRadialGradient(cx, cy, R * .2, cx, cy, w * .5);
+  glow.addColorStop(0, 'rgba(' + c + ',' + (.10 + level * .55) + ')'); glow.addColorStop(1, 'rgba(' + c + ',0)');
+  g.fillStyle = glow; g.fillRect(0, 0, w, h);
+
+  // particles: thrown outward when recording or playing, pulled inward in reverse
+  if (!calm){
+    const want = mode === 'idle' ? 0 : level * 5;
+    for (let i = 0; i < want && parts.length < 160; i++){
+      if (Math.random() > want - i) break;
+      const inward = mode === 'rev';
+      parts.push({ a: Math.random() * 6.283, r: inward ? w * .5 : R * pulse + 6, v: (inward ? -1 : 1) * (40 + Math.random() * 90) * (.6 + level * 2), s: 1 + Math.random() * 1.8, life: 1 });
+    }
+    for (let i = parts.length - 1; i >= 0; i--){
+      const p = parts[i]; p.r += p.v * dt; p.a += dt * (p.v > 0 ? .25 : -.25); p.life -= dt * .9;
+      if (p.life <= 0 || p.r > w * .52 || p.r < R * pulse){ parts.splice(i, 1); continue; }
+      g.globalAlpha = p.life * .8; g.fillStyle = 'rgb(' + c + ')';
+      g.beginPath(); g.arc(cx + Math.cos(p.a) * p.r, cy + Math.sin(p.a) * p.r, p.s, 0, 6.283); g.fill();
+    }
+    g.globalAlpha = 1;
+  }
+
+  // bars
+  g.lineCap = 'round'; g.lineWidth = Math.max(2, w / 150);
+  for (let i = 0; i < N; i++){
+    const ang = rot + i / N * 6.283, r0 = R * pulse + 8, r1 = r0 + 3 + lv[i] * L;
+    g.strokeStyle = 'rgba(' + c + ',' + (.35 + lv[i] * .65) + ')';
+    g.beginPath(); g.moveTo(cx + Math.cos(ang) * r0, cy + Math.sin(ang) * r0); g.lineTo(cx + Math.cos(ang) * r1, cy + Math.sin(ang) * r1); g.stroke();
+  }
+
+  // inner ring, with a sweep that shows how far playback has run (it unwinds in reverse)
+  g.lineWidth = 2; g.strokeStyle = 'rgba(' + c + ',.3)';
+  g.beginPath(); g.arc(cx, cy, R * pulse, 0, 6.283); g.stroke();
+  if (progress >= 0){
+    g.lineWidth = 4; g.strokeStyle = 'rgb(' + c + ')';
+    g.beginPath(); g.arc(cx, cy, R * pulse, -1.5708, -1.5708 + progress * 6.283); g.stroke();
+  } else if (mode === 'rec' && !calm){
+    const s = t * .004; g.lineWidth = 4; g.strokeStyle = 'rgb(' + c + ')';
+    g.beginPath(); g.arc(cx, cy, R * pulse, s, s + 1.1); g.stroke();
+  }
+  requestAnimationFrame(frame);
+}
+
+$('rec').addEventListener('click', onRec);
+$('play').addEventListener('click', () => play('play'));
+$('rev').addEventListener('click', () => play('rev'));
+window.addEventListener('resize', () => { peaks = null; drawStrip(); });
+
+/* Example sound so Play and Reverse work before the first recording: a tone that rises in pitch. */
+(function example(){
+  try{
+    const a = audio(), sr = a.sampleRate, n = Math.floor(sr * 1.2), b = a.createBuffer(1, n, sr), d = b.getChannelData(0);
+    let ph = 0;
+    for (let i = 0; i < n; i++){
+      const t = i / n; ph += 2 * Math.PI * (220 + 660 * t * t) / sr;
+      d[i] = Math.sin(ph) * 0.35 * Math.min(1, t * 20) * Math.min(1, (1 - t) * 12) * (0.35 + 0.65 * t);
+    }
+    setBuffer(b, 'Example sound: rising tone');
+  }catch(e){ say('This browser cannot play sound in this page.'); }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
