@@ -27,7 +27,14 @@ h1{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.1;let
 #time{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(18px,5.4vmin,30px)}
 #mode{font-size:clamp(8px,2.2vmin,11px);font-weight:600;letter-spacing:.22em;color:var(--muted);transition:color .3s}
 .strip{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 12px;display:flex;flex-direction:column;gap:4px;flex:none}
-.strip span{font-size:13px;font-weight:500;color:var(--muted)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#label{font-size:13px;font-weight:500;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#loop{flex:none;display:flex;align-items:center;gap:6px;min-height:34px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--muted);font:600 13px var(--body);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+#loop svg{width:16px;height:16px;fill:currentColor}
+#loop[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+#loop[aria-pressed="true"] svg{animation:spin 2.4s linear infinite}
+#loop:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@keyframes spin{to{transform:rotate(360deg)}}
 #wave{width:100%;height:44px;display:block}
 .keys{display:flex;align-items:flex-start;justify-content:center;gap:26px;flex:none}
 .key{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;padding:0;color:var(--ink);font:600 14px var(--body);cursor:pointer}
@@ -49,7 +56,7 @@ h1{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.1;let
 @keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(1.55);opacity:0}}
 #status{color:var(--muted);font-size:13px;line-height:1.35;margin:0;text-align:center;min-height:2.7em;max-width:40ch;flex:none}
 @media (max-height:560px){h1{display:none}#status{min-height:0}.cap{width:54px;height:54px}#rec .cap{width:68px;height:68px}#play .cap,#rev .cap{margin-top:7px}}
-@media (prefers-reduced-motion: reduce){.key.live .cap::after{animation:none}.cap,.dot{transition:none}}
+@media (prefers-reduced-motion: reduce){#loop[aria-pressed="true"] svg{animation:none}.key.live .cap::after{animation:none}.cap,.dot{transition:none}}
 </style>
 </head>
 <body>
@@ -62,7 +69,7 @@ h1{font-family:var(--display);font-weight:800;font-size:20px;line-height:1.1;let
   </div>
 
   <div class="strip">
-    <span id="label">Example sound: rising tone</span>
+    <div class="row"><span id="label">Example sound: rising tone</span><button id="loop" type="button" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4V7H7a2 2 0 0 0-2 2v2H3V9a4 4 0 0 1 4-4h10zM7 22l-4-4 4-4v3h10a2 2 0 0 0 2-2v-2h2v2a4 4 0 0 1-4 4H7z"/></svg><span id="loopText">Loop off</span></button></div>
     <canvas id="wave" aria-hidden="true"></canvas>
   </div>
 
@@ -92,7 +99,7 @@ const COL = { idle:[122,140,160], rec:[255,84,64], play:[45,212,191], rev:[167,1
 const NAME = { idle:'READY', rec:'RECORDING', play:'PLAYING', rev:'REVERSE' };
 
 let ctx, buf, rbuf, src, playAn, recAn, activeAn = null, fd;
-let mode = 'idle', playT0 = 0, progress = -1;
+let mode = 'idle', playT0 = 0, progress = -1, loop = false;
 let rec, stream, micNode, chunks = [], recStart = 0, recHist = [], histAcc = 0;
 
 const audio = () => (ctx = ctx || new AC());
@@ -144,7 +151,7 @@ async function play(which){
   const a = audio();
   try{ await a.resume(); }catch(e){}
   playAn = playAn || analyser(true);
-  src = a.createBufferSource(); src.buffer = which === 'rev' ? rbuf : buf; src.connect(playAn);
+  src = a.createBufferSource(); src.buffer = which === 'rev' ? rbuf : buf; src.loop = loop; src.connect(playAn);
   src.onended = stopPlay;
   try{ src.start(); }catch(e){ src = null; say('This device refused to play sound. Turn off silent mode and try again.'); return; }
   playT0 = a.currentTime; activeAn = playAn; setMode(which);
@@ -243,7 +250,7 @@ function frame(t){
 
   // clock, progress, recording history
   if (mode === 'play' || mode === 'rev'){
-    const p = Math.min(1, (a.currentTime - playT0) / buf.duration);
+    const el = (a.currentTime - playT0) / buf.duration, p = loop ? el % 1 : Math.min(1, el);
     progress = mode === 'rev' ? 1 - p : p;
     setTime(mode === 'rev' ? buf.duration * (1 - p) : buf.duration * p);
     drawStrip();
@@ -316,6 +323,16 @@ function frame(t){
 $('rec').addEventListener('click', onRec);
 $('play').addEventListener('click', () => play('play'));
 $('rev').addEventListener('click', () => play('rev'));
+$('loop').addEventListener('click', () => {
+  loop = !loop;
+  $('loop').setAttribute('aria-pressed', loop); $('loopText').textContent = loop ? 'Loop on' : 'Loop off';
+  if (src){
+    // keep the playhead where it is: drop the passes already played before switching
+    const d = buf.duration; playT0 += Math.floor((ctx.currentTime - playT0) / d) * d;
+    src.loop = loop;
+  }
+  say(loop ? 'Loop is on. Play or Reverse will repeat until you tap Stop.' : 'Loop is off.');
+});
 window.addEventListener('resize', () => { peaks = null; drawStrip(); });
 
 /* Example sound so Play and Reverse work before the first recording: a tone that rises in pitch. */
